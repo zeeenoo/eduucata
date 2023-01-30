@@ -2,7 +2,7 @@ import GoogleLogin from 'react-google-login';
 import React,{useState} from 'react';
 import axios from 'axios';
 
-const GoogleAuthButton = () => {
+function GoogleAuthButton  ()  {
     const [loggedIn, setLoggedIn] = useState(false);
 
     const handleGoogleResponse = (response) => {
@@ -14,13 +14,15 @@ const GoogleAuthButton = () => {
             axios.post('/api/google-login/', {id_token: response.getAuthResponse().id_token})
                 .then(res => {
                     // Handle successful login
+                    
                 })
                 .catch(error => {
                     // Handle error
                 });
         }
     }
-
+console.log(loggedIn)
+console.log(handleGoogleResponse)
     return (
         <div>
 

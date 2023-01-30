@@ -241,37 +241,38 @@ def apiOverview(request):
 
     return Response(api_urls)
 
-class AnnoncesList(generics.ListAPIView):
-    queryset = Annonce.objects.all()
-    serializer_class = AnnonceSerializer
-    filter_backends = (DjangoFilterBackend,)
-    filterset_class = AnnonceFilter
+# class AnnoncesList(generics.ListAPIView):
+#     queryset = Annonce.objects.all()
+#     serializer_class = AnnonceSerializer
+#     filter_backends = (DjangoFilterBackend,)
+#     filterset_class = AnnonceFilter
 
-class AnnonceDetail(generics.RetrieveAPIView):
-    queryset = Annonce.objects.all()
-    serializer_class = AnnonceSerializer
-    lookup_field = 'pk'
+# class AnnonceDetail(generics.RetrieveAPIView):
+#     queryset = Annonce.objects.get(id=pk)
+#     serializer_class = AnnonceSerializer
+#     lookup_field = 'pk'
 
 
-class AnnonceCreate(generics.CreateAPIView):
-    queryset = Annonce.objects.all()
-    serializer_class = AnnonceSerializer
-    # authentication_classes = (JSONWebTokenAuthentication,)
-    permission_classes = [IsAuthenticated]
 
-class AnnonceUpdate(generics.UpdateAPIView):
-    queryset = Annonce.objects.all()
-    serializer_class = AnnonceSerializer
-    # authentication_classes = (JSONWebTokenAuthentication,)
-    permission_classes = [IsAuthenticated]
-    lookup_field = 'pk'
+# class AnnonceCreate(generics.CreateAPIView):
+#     queryset = Annonce.objects.all()
+#     serializer_class = AnnonceSerializer
+#     # authentication_classes = (JSONWebTokenAuthentication,)
+#     permission_classes = [IsAuthenticated]
 
-class AnnonceDelete(generics.DestroyAPIView):
-    queryset = Annonce.objects.all()
-    serializer_class = AnnonceSerializer
-    # authentication_classes = (JSONWebTokenAuthentication,)
-    permission_classes = [IsAuthenticated]
-    lookup_field = 'pk'
+# class AnnonceUpdate(generics.UpdateAPIView):
+#     queryset = Annonce.objects.all()
+#     serializer_class = AnnonceSerializer
+#     # authentication_classes = (JSONWebTokenAuthentication,)
+#     permission_classes = [IsAuthenticated]
+#     lookup_field = 'pk'
+
+# class AnnonceDelete(generics.DestroyAPIView):
+#     queryset = Annonce.objects.get(id=pk)
+#     serializer_class = AnnonceSerializer
+#     # authentication_classes = (JSONWebTokenAuthentication,)
+#     permission_classes = [IsAuthenticated]
+#     lookup_field = 'pk'
 
 class SaveView(generics.CreateAPIView):
     # authentication_classes = (JSONWebTokenAuthentication,)
@@ -287,46 +288,97 @@ class UnsaveView(generics.DestroyAPIView):
 
 
 
+# #class based view for the crud to annonce
+# class AnnonceList(generics.ListCreateAPIView):
+#     queryset = Annonce.objects.all()
+#     serializer_class = AnnonceSerializer
+#     # authentication_classes = (JSONWebTokenAuthentication,)
+#     permission_classes = [IsAuthenticated]
+
+# class AnnonceDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Annonce.objects.all()
+#     serializer_class = AnnonceSerializer
+#     # authentication_classes = (JSONWebTokenAuthentication,)
+#     permission_classes = [IsAuthenticated]
 
 
-# @api_view(['GET'])
-# def annoncesList(request):
-#     annonces = Annonce.objects.all()
-#     serializer = AnnonceSerializer(annonces, many=True)
-#     return Response(serializer.data)
 
-# @api_view(['GET'])
-# def annonceDetail(request, pk):
-#     annonce = Annonce.objects.get(id=pk)
-#     serializer = AnnonceSerializer(annonce)
-#     return Response(serializer.data)
+
+
+
+
+@api_view(['GET'])
+def AnnoncesList(request):
+    annonces = Annonce.objects.all()
+    serializer = AnnonceSerializer(annonces, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def AnnonceDetail(request, pk):
+    annonce = Annonce.objects.get(id=pk)
+    serializer = AnnonceSerializer(annonce)
+    return Response(serializer.data)
 
 # @authentication_classes([SessionAuthentication, BasicAuthentication, TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-# @api_view(['POST'])
-# def annonceCreate(request):
-#     authentication_classes = (GoogleOAuth2Authentication,)
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def annonceCreate(request):
+    authentication_classes = (GoogleOAuth2Authentication,)
 
-#     serializer = AnnonceSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer = AnnonceSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# @api_view(['PUT'])
-# def annonceUpdate(request, pk):
-#     annonce = Annonce.objects.get(id=pk)
-#     serializer = AnnonceSerializer(instance=annonce, data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
+@api_view(['PUT'])
+def annonceUpdate(request, pk):
+    annonce = Annonce.objects.get(id=pk)
+    serializer = AnnonceSerializer(instance=annonce, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def annonceDelete(request, pk):
+    annonce = Annonce.objects.get(id=pk)
+    annonce.delete()
+    return Response(status=STATUS.HTTP_204_NO_CONTENT)
+
+
+
+# class annonce(APIView):
+#     # authentication_classes = (JSONWebTokenAuthentication,)
+#     permission_classes = (IsAuthenticated,)
+
+#     def get(self, request):
+#         annonces = Annonce.objects.all()
+#         serializer = AnnonceSerializer(annonces, many=True)
 #         return Response(serializer.data)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# @api_view(['DELETE'])
-# def annonceDelete(request, pk):
-#     annonce = Annonce.objects.get(id=pk)
-#     annonce.delete()
-#     return Response(status=STATUS.HTTP_204_NO_CONTENT)
+#     def post(self, request):
+#         serializer = AnnonceSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+#     def delete(self,request):
+#         annonce = Annonce.objects.get(id=pk)
+#         annonce.delete()
+#         return Response(status=STATUS.HTTP_204_NO_CONTENT)
+
+
+#     def put(self, request, pk): 
+#         annonce = Annonce.objects.get(id=pk)
+#         serializer = AnnonceSerializer(instance=annonce, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

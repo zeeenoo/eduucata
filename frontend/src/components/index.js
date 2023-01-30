@@ -1,11 +1,15 @@
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import Card from "./Card";
-import GoogleAuthButton from "./GoogleLogin";
+import Filter from "./Filter";
+import Signin from "./Signin";
+import Signup from "./signup";
 
 export{
     NavBar,
     Card,
     Footer,
-    GoogleAuthButton
+    Filter,
+    Signin,
+    Signup
 }
