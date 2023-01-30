@@ -4,6 +4,7 @@ import Card from "./Card";
 import Filter from "./Filter";
 import Signin from "./Signin";
 import Signup from "./signup";
+import DynamicNavbar from "./dynamicNav";
 
 export{
     NavBar,
@@ -11,5 +12,6 @@ export{
     Footer,
     Filter,
     Signin,
-    Signup
+    Signup,
+    DynamicNavbar
 }

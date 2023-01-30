@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-class Navbar extends React.Component {
+import Signin from "./Signin";
+import Signup from "./signup";
+class DynamicNavbar extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -21,13 +22,13 @@ class Navbar extends React.Component {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Signin/>
+              <Signup/>
             </React.Fragment>
           )}
         </div>
       );
     }
   }
-    export default Navbar;
+export default DynamicNavbar;
   

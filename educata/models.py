@@ -149,7 +149,7 @@ class Annonce(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    titre = models.CharField(max_length=200,blank=True,null=True,)
+    title = models.CharField(max_length=200,blank=True,null=True,)
     categorie = models.CharField(max_length=200, choices=category_options)
     theme = models.CharField(max_length=200, choices=theme_options)
     modalite = models.CharField(max_length=200, choices=modalite_options)

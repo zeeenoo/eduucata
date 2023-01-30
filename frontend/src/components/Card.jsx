@@ -1,8 +1,13 @@
 import React from 'react'
 import {BsBookmark} from "react-icons/bs"
 import {BsBookmarkFill} from "react-icons/bs"
-
+import {useNavigate} from 'react-router-dom'
 function Card(props) {
+  const navigate = useNavigate();
+
+  const todetails=()=>{
+    navigate('/details',{state:{...props.data}});
+  }
   const [isSaved, setIsSaved] = React.useState(false)
   return (
     <div className='xs:flex rounded-[20px] shadow-lg p-4 max-w-[1000px] mb-4'>
@@ -24,10 +29,12 @@ function Card(props) {
             <p className='bg-[#E7F6E7] rounded-[20px] mr-5 px-2 py-1 text-[12px]'>{props.data.dateCreated}</p>
             <p className='bg-[#56cc8d] rounded-[20px] mr-5 px-2 py-1 text-[12px]'>{props.data.tarif} da</p>
           </div>
-          <div className='flex text-white'>
+          {/* <div className='flex text-white'>
             <button className='rounded-[20px] bg-[#242145] xs:px-6 px-2 py-1 text-[15px] xs:font-bold mr-2'>view on map</button>
             <button className='rounded-[20px] bg-[#242145] xs:px-6 px-2 py-1 text-[15px] xs:font-bold'>book a list</button>
-          </div>
+          </div> */}
+          <button className='rounded-[20px] bg-[#242145] xs:px-6 px-2 py-1 text-[15px] xs:font-bold mr-2' onClick={()=>todetails()}>Show details</button>
+
         </div>
         <div className='px-2 xs:block hidden'>
           <img src={props.data.profilImg} alt=""  className='rounded-[20px] w-[100px] mb-4'/>

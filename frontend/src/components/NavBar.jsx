@@ -1,8 +1,7 @@
 import React from 'react'
 import {ImMenu} from "react-icons/im"
 import {GrClose} from "react-icons/gr"
-import {Signin, Signup} from '../components'
-import dynamicNav from './dynamicNav'
+import {Signin, Signup, DynamicNavbar} from '../components'
 
 
 function NavBar(props) {
@@ -16,8 +15,9 @@ function NavBar(props) {
             ))}  
         </ul>
 
-        <Signin/>
-        <Signup/>
+        {/* <Signin/>
+        <Signup/> */}
+        <DynamicNavbar/>
 
         {/* <dynamicNav/> */}
 
